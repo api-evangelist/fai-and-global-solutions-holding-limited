@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: live probe of https://fai.sa/.well-known/*
+host: https://fai.sa
+note: >-
+  No .well-known documents are reachable. The origin (nginx/1.23.3, PHP 8.2.17,
+  WordPress + Yoast) returns HTTP 403 to every request from outside its allowed
+  set — only /robots.txt is served. This is a WAF/geo block, not evidence that
+  the documents are absent; re-probe from an allowed network on a later round.
+documents:
+- path: /.well-known/security.txt
+  status: 403
+- path: /.well-known/openid-configuration
+  status: 403
+- path: /.well-known/oauth-authorization-server
+  status: 403
+- path: /.well-known/api-catalog
+  status: 403
+- path: /.well-known/ai-plugin.json
+  status: 403
+other_paths:
+- path: /robots.txt
+  status: 200
+  note: 'Yoast block; advertises sitemap https://fai.sa/sitemap_index.xml (403 to us)'
+- path: /sitemap_index.xml
+  status: 403
+- path: /llms.txt
+  status: 403
+- path: /wp-json/
+  status: 403
+- path: /
+  status: 403
